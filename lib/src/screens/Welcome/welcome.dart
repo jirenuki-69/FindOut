@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:findout/src/screens/Home/home.dart';
+import 'package:findout/src/screens/SplashScreen/SplashScreen.dart';
 import 'package:findout/src/widgets/FondoOpacidad.dart';
 import 'package:findout/src/widgets/OutLogo.dart';
 import 'package:findout/static/backgrounds.dart';
@@ -18,6 +19,7 @@ class _WelcomePageState extends State<WelcomePage>
   double movement = -100.0;
   int index = 0;
   Timer _timer;
+  bool splashScreen = true;
 
   @override
   void initState() {
@@ -25,10 +27,17 @@ class _WelcomePageState extends State<WelcomePage>
         vsync: this, duration: const Duration(milliseconds: 3500));
     _controller.forward();
     _timer = Timer.periodic(const Duration(milliseconds: 3500), (Timer t) {
+      
       index = index == backgrounds.length - 1 ? 0 : index + 1;
+      new Future.delayed(const Duration(milliseconds: 1500), () {
+        setState(() {
+          splashScreen = false;
+        });
+      });
       _controller.reset();
       _controller.forward();
     });
+
     super.initState();
   }
 
@@ -116,6 +125,19 @@ class _WelcomePageState extends State<WelcomePage>
                   bottom: _logoPositioned - 60,
                   left: (_leftPositioned) + 100.0,
                   child: OutLogo(),
+                ),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 600),
+                  child: splashScreen
+                  ? Stack(
+                    children: [
+                      Image(image: AssetImage(backgrounds[0].imagen)),
+                      Image(image: AssetImage(backgrounds[1].imagen)),
+                      Image(image: AssetImage(backgrounds[2].imagen)),
+                      SplashScreen(),
+                    ],
+                  )
+                  : SizedBox.shrink(),
                 ),
               ],
             );

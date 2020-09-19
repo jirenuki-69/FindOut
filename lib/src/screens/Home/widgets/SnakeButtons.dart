@@ -8,19 +8,19 @@ class SnakeButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    
+    final double _buttonPosition = size.width * 0.1;
+
     return Positioned(
       bottom: size.height * 0.1,
-      left: size.width * 0.1,
-      right: size.width * 0.1,
+      left: _buttonPosition,
+      right: _buttonPosition,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           SnakeButton(
             onTap: () {},
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: Text(
                 "Iniciar Sesión",
                 style: TextStyle(
@@ -34,10 +34,8 @@ class SnakeButtons extends StatelessWidget {
           ),
           SnakeButton(
             onTap: () {},
-            duration: const Duration(milliseconds: 1000),
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: Text(
                 "Crear Cuenta",
                 style: TextStyle(
