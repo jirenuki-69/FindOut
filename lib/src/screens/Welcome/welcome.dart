@@ -29,7 +29,7 @@ class _WelcomePageState extends State<WelcomePage>
     _timer = Timer.periodic(const Duration(milliseconds: 3500), (Timer t) {
       
       index = index == backgrounds.length - 1 ? 0 : index + 1;
-      new Future.delayed(const Duration(milliseconds: 1500), () {
+      Future.delayed(const Duration(milliseconds: 800), () {
         setState(() {
           splashScreen = false;
         });

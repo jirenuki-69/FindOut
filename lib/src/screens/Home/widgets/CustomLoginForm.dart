@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'CustomTextField.dart';
 import 'SubmitButton.dart';
 
-class CustomForm extends StatelessWidget {
-  const CustomForm({
+class CustomLoginForm extends StatelessWidget {
+  const CustomLoginForm({
     Key key,
     @required this.containerWidth,
   }) : super(key: key);
@@ -27,7 +27,7 @@ class CustomForm extends StatelessWidget {
             SizedBox(height: 10),
             Text("¿Olvidaste tu contraseña?", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.grey)),
             SizedBox(height: 20),
-            SubmitButton(),
+            SubmitButton(text: "Iniciar Sesión",),
           ],
         ),
       ),
