@@ -31,7 +31,6 @@ class _CustomPageViewState extends State<CustomPageView> {
   void dispose() {
     _controller.dispose();
     _timer.cancel();
-    _timer = null;
     super.dispose();
   }
 

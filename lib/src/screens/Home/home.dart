@@ -1,11 +1,12 @@
-import 'package:findout/src/screens/Home/widgets/BottomContainer.dart';
-import 'package:findout/src/screens/Home/widgets/PhotoAuthor.dart';
-import 'package:findout/src/screens/Home/widgets/Post.dart';
-import 'package:findout/src/screens/Home/widgets/SnakeButtons.dart';
-import 'package:findout/src/screens/Home/widgets/TitleSubtitle.dart';
-import 'package:findout/src/screens/Home/widgets/WelcomeText.dart';
-import 'package:findout/src/widgets/OutLogo.dart';
+import 'dart:async';
+import 'package:findout/constants/constants.dart';
+import 'package:findout/src/widgets/FondoOpacidad.dart';
 import 'package:flutter/material.dart';
+import 'widgets/Arrows.dart';
+import 'widgets/CategoriesView.dart';
+import 'widgets/CustomAppBar.dart';
+import 'widgets/InformacionLugar.dart';
+import 'widgets/NombreSitio.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -14,131 +15,59 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-AnimationController _controller;
-AnimationController _controller2;
-Animation<double> animation;
-int milliseconds = 350;
-bool isOpened;
-String titulo = "Iniciar Sesión";
+AnimationController _animationControllerArrow;
+bool isInitiated = false;
+Timer _timer;
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    isOpened = false;
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: milliseconds),
-    );
-    _controller2 = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: milliseconds + 100),
-    );
-
-    _controller.addStatusListener((status) {
-      status == AnimationStatus.completed ? _controller2.forward() : null;
-    });
-
-    animation = Tween(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller2, curve: Curves.easeInQuint));
-
+    _animationControllerArrow = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 950));
+    _animationControllerArrow.repeat();
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    _controller2.dispose();
+    _animationControllerArrow.dispose();
     super.dispose();
-  }
-
-  void _changeState(String text) {
-    setState(() {
-      titulo = text;
-      isOpened = true;
-    });
-    _controller.forward();
-  }
-
-  void _onDraggedDown(DragUpdateDetails value) {
-      if(value.delta.dy > 0.5) { 
-        setState(() {
-          isOpened = false;
-        });
-        _controller.reverse(); 
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final double _logoPositioned = size.height * 0.08;
-    final double _leftPositioned = size.width / 2 - 100.0;
-    final double whiteContainerHeight = size.height * 0.4;
+    final double safeArea = kToolbarHeight / 2;
+    final double iconSize = 60.0;
 
     return Scaffold(
       body: AnimatedBuilder(
-        animation: _controller,
-        builder: (context, child) {
-          double postBottom = (0 + _controller.value * 300).clamp(0, whiteContainerHeight);
-          double formHeight = isOpened ? whiteContainerHeight * 0.8 : 100.0;
-          double opacity = 0.2 + (_controller.value * 0.2);
-
-          return SingleChildScrollView(
-            child: SizedBox(
-              height: size.height,
-              width: size.width,
-              child: Stack(
-                children: [
-                  BottomContainer(
-                    whiteContainerHeight: whiteContainerHeight,
-                    height: formHeight.abs(),
-                    loginPressed: titulo == "Iniciar Sesión" ? true : false
-                  ),
-                  Post(
-                    whiteContainerHeight: whiteContainerHeight,
-                    bottom: postBottom,
-                    opacity: opacity,
-                    animation: _controller,
-                    onDragged: (value) => _onDraggedDown(value),
-                  ),
-                  Positioned(
-                    top: _logoPositioned + 50 * _controller.value,
-                    left: _leftPositioned,
-                    child: Text(
-                      "find",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 59,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: (_logoPositioned + 60) + 50 * _controller.value,
-                    left: (_leftPositioned) + 100.0,
-                    child: OutLogo(),
-                  ),
-
-                  _controller.isCompleted
-                  ? TitleSubtitle(
-                      whiteContainerHeight: whiteContainerHeight,
-                      animation: animation,
-                      texto: titulo,
-                    )
-                  : SizedBox.shrink(),
-
-                  PhotoAuthor(animation: _controller,),
-                  WelcomeText(animation: _controller,),
-                  _controller.value != 1 ? SnakeButtons(
-                    animation: _controller,
-                    onLoginPressed: () => _changeState("Iniciar Sesión"),
-                    onSignUpPressed: () => _changeState("Crear Cuenta"),
-                  ) : SizedBox.shrink(),
-                ],
+        animation: _animationControllerArrow,
+        builder: (context, snapshot) {
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.asset(
+                "$imgPath/fondo_lugar.png",
+                fit: BoxFit.cover,
               ),
-            ),
+              FondoOpacidad(),
+              CustomAppBar(
+                safeArea: safeArea,
+              ),
+              CategoriesView(),
+              NombreSitio(),
+              Arrows(
+                top: size.height * 0.55 - iconSize / 2,
+                iconSize: iconSize,
+                onLeftArrowTapped: () {},
+                onRightArrowTapped: () {},
+              ),
+              InformacionLugar(
+                animation: _animationControllerArrow,
+              ),
+            ],
           );
         },
       ),

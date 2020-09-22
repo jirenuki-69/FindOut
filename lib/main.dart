@@ -1,5 +1,5 @@
 import 'package:findout/constants/constants.dart';
-import 'package:findout/src/screens/Welcome/welcome.dart';
+import 'package:findout/src/screens/Gallery/Gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         primaryColor: primaryColor,
         fontFamily: 'Poppins',
       ),
-      home: WelcomePage(),
+      home: GalleryPage(),
     );
   }
 }

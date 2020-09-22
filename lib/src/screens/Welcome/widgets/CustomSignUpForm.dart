@@ -1,6 +1,5 @@
 import 'package:findout/constants/constants.dart';
 import 'package:flutter/material.dart';
-
 import 'CustomTextField.dart';
 import 'SubmitButton.dart';
 
@@ -60,7 +59,7 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
               ],
             ),
             SizedBox(height: 20),
-            SubmitButton(text: "Crear Cuenta",),
+            SubmitButton(text: "Crear Cuenta", onPressed: () {},),
           ],
         ),
       ),
