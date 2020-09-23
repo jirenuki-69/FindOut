@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'CustomLoginForm.dart';
 import 'CustomSignUpForm.dart';
 
+// ignore: must_be_immutable
 class BottomContainer extends StatefulWidget {
   BottomContainer({
     Key key,

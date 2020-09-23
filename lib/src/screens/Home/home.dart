@@ -15,23 +15,35 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+AnimationController _animationController;
 AnimationController _animationControllerArrow;
 bool isInitiated = false;
 Timer _timer;
+const Duration controllersDuration = const Duration( milliseconds: 950 );
+const Duration duration = const Duration( milliseconds: 550 );
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
-    _animationControllerArrow = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 950));
+    _animationController = AnimationController( vsync: this, duration: controllersDuration );
+    _animationControllerArrow = AnimationController( vsync: this, duration: controllersDuration );
+    _animationController.forward();
     _animationControllerArrow.repeat();
+
+    _timer = Timer(const Duration(milliseconds: 200), () {
+      setState(() {
+        isInitiated = true; //Empieza la animación de entrada
+      });
+    });
     super.initState();
   }
 
   @override
   void dispose() {
+    _animationController.dispose();
     _animationControllerArrow.dispose();
+    _timer.cancel();
+    isInitiated = false;
     super.dispose();
   }
 
@@ -55,17 +67,28 @@ class _HomePageState extends State<HomePage>
               FondoOpacidad(),
               CustomAppBar(
                 safeArea: safeArea,
+                animation: _animationController,
+                duration: controllersDuration,
+                isInitiaded: isInitiated,
               ),
-              CategoriesView(),
-              NombreSitio(),
+              CategoriesView(
+                duration: controllersDuration,
+                isInitaded: isInitiated,
+              ),
+              NombreSitio(
+                duration: duration,
+                isInitiaded: isInitiated,
+              ),
               Arrows(
                 top: size.height * 0.55 - iconSize / 2,
                 iconSize: iconSize,
                 onLeftArrowTapped: () {},
                 onRightArrowTapped: () {},
+                animation: _animationControllerArrow,
               ),
               InformacionLugar(
                 animation: _animationControllerArrow,
+                isInitiaded: isInitiated,
               ),
             ],
           );

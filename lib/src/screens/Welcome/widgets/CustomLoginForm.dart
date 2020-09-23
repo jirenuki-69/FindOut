@@ -14,7 +14,7 @@ class CustomLoginForm extends StatelessWidget {
   final double containerWidth;
 
   void _navigateToHome(BuildContext context) {
-    Navigator.of(context).pushReplacement(
+    Navigator.of(context).push(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 650),
         pageBuilder: (context, animation1, animation2) {
@@ -23,7 +23,6 @@ class CustomLoginForm extends StatelessWidget {
             parent: animation1,
             curve: Curves.elasticInOut,
           );
-
           return ScaleTransition(
             scale: animation1,
             child: HomePage(),

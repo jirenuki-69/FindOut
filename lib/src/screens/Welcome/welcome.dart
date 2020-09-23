@@ -35,7 +35,7 @@ class _WelcomePageState extends State<WelcomePage> with TickerProviderStateMixin
     );
 
     _controller.addStatusListener((status) {
-      status == AnimationStatus.completed ? _controller2.forward() : null;
+      status == AnimationStatus.completed ? _controller2.forward() : SizedBox.shrink();
     });
 
     animation = Tween(
