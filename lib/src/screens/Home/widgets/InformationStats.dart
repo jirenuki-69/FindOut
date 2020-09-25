@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 class InformationStats extends StatelessWidget {
   const InformationStats({
     Key key,
+    @required this.favoritesCount,
+    @required this.commentsCount,
   }) : super(key: key);
+
+  final int favoritesCount, commentsCount;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class InformationStats extends StatelessWidget {
             ),
             SizedBox( width: 5 ),
             Text(
-              "20",
+              "$favoritesCount",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -41,7 +45,7 @@ class InformationStats extends StatelessWidget {
             ),
             SizedBox( width: 5 ),
             Text(
-              "20",
+              "$commentsCount",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,

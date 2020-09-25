@@ -6,10 +6,14 @@ class NombreSitio extends StatelessWidget {
     Key key,
     @required this.duration,
     @required this.isInitiaded,
+    @required this.nombre,
+    @required this.profession,
   }) : super(key: key);
 
   final Duration duration;
   final bool isInitiaded;
+  final String nombre;
+  final String profession;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class NombreSitio extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Cocktails",
+                profession,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -36,7 +40,7 @@ class NombreSitio extends StatelessWidget {
                 ),
               ),
               Text(
-                "Luango",
+                nombre,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 47,

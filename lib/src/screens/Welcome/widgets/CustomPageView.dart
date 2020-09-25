@@ -22,7 +22,7 @@ class _CustomPageViewState extends State<CustomPageView> {
     _timer = Timer.periodic(const Duration(milliseconds: 3000), (Timer t) { 
 
       index = index == backgrounds.length - 1 ? 0 : index + 1;
-      _controller.animateToPage(index, duration: duration, curve: Curves.easeInOutQuart);
+      _controller.animateToPage(index, duration: duration, curve: Curves.easeIn);
     });
     super.initState();
   }

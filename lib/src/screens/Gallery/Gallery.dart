@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:findout/constants/constants.dart';
 import 'package:findout/src/screens/Welcome/Welcome.dart';
 import 'package:findout/src/screens/SplashScreen/SplashScreen.dart';
 import 'package:findout/src/widgets/FondoOpacidad.dart';
@@ -134,7 +133,6 @@ class _GalleryPageState extends State<GalleryPage>
                       Image(image: AssetImage(backgrounds[0].imagen)),
                       Image(image: AssetImage(backgrounds[1].imagen)),
                       Image(image: AssetImage(backgrounds[2].imagen)),
-                      Image(image: AssetImage("$imgPath/fondo_lugar.png")),
                       SplashScreen(),
                     ],
                   )

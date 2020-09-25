@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 class DescripcionLugar extends StatelessWidget {
   const DescripcionLugar({
     Key key,
+    @required this.descripcion,
   }) : super(key: key);
+
+  final String descripcion;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd",
+      descripcion,
       style: TextStyle(
           color: Colors.white,
           fontSize: 11,
