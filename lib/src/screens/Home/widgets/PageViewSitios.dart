@@ -23,7 +23,7 @@ class _PageViewSitiosState extends State<PageViewSitios> {
     _pageController = PageController( keepPage: false, initialPage: 0 );
     _timer = Timer.periodic(const Duration(milliseconds: 3000), (timer) {
         currentIndex = currentIndex == widget.sitio.images.length - 1 ? 0 : currentIndex + 1;
-        _pageController.animateToPage(currentIndex, duration: const Duration(milliseconds: 250), curve: Curves.easeIn);
+        _pageController.animateToPage(currentIndex, duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
      });
     super.initState();
   }

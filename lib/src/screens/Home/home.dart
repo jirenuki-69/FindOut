@@ -8,6 +8,7 @@ import 'widgets/CustomAppBar.dart';
 import 'widgets/InformacionLugar.dart';
 import 'widgets/NombreSitio.dart';
 import 'widgets/PageViewSitios.dart';
+import 'widgets/Social.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -19,17 +20,20 @@ class HomePage extends StatefulWidget {
 AnimationController _animationController;
 AnimationController _animationControllerArrow;
 bool isInitiated = false;
+bool socialOpened = false;
 Timer _timer;
 int index;
-const Duration controllersDuration = const Duration( milliseconds: 950 );
-const Duration duration = const Duration( milliseconds: 550 );
+const Duration controllersDuration = const Duration(milliseconds: 950);
+const Duration duration = const Duration(milliseconds: 550);
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     index = 0;
-    _animationController = AnimationController( vsync: this, duration: controllersDuration );
-    _animationControllerArrow = AnimationController( vsync: this, duration: controllersDuration );
+    _animationController =
+        AnimationController(vsync: this, duration: controllersDuration);
+    _animationControllerArrow =
+        AnimationController(vsync: this, duration: controllersDuration);
     _animationController.forward();
     _animationControllerArrow.repeat();
 
@@ -47,11 +51,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _animationControllerArrow.dispose();
     _timer.cancel();
     isInitiated = false;
+    socialOpened = false;
     super.dispose();
   }
 
   void _onVerticalUpdate(DragUpdateDetails value) {
-    print(value.delta.dy);
+    print(value.primaryDelta);
+    if (value.primaryDelta < -1.5) {
+      setState(() {
+        socialOpened = true;
+      });
+    }
   }
 
   @override
@@ -71,6 +81,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 sitio: sitios[index],
               ),
               FondoOpacidad(),
+              socialOpened ? Social() : SizedBox.shrink(),
               CustomAppBar(
                 safeArea: safeArea,
                 animation: _animationController,
@@ -102,14 +113,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 },
                 animation: _animationControllerArrow,
               ),
-              InformacionLugar(
-                animation: _animationControllerArrow,
-                isInitiaded: isInitiated,
-                informacion: sitios[index].description,
-                favoritesCount: sitios[index].favoritesCount,
-                commentsCount: sitios[index].commentsCount,
-                onVerticalUpdate: (value) => _onVerticalUpdate(value),
-              ),
+              socialOpened
+                  ? Social()
+                  : Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      height: size.height * .35,
+                      child: InformacionLugar(
+                        animation: _animationControllerArrow,
+                        isInitiaded: isInitiated,
+                        informacion: sitios[index].description,
+                        favoritesCount: sitios[index].favoritesCount,
+                        commentsCount: sitios[index].commentsCount,
+                        onVerticalUpdate: (value) => _onVerticalUpdate(value),
+                      ),
+                    ),
             ],
           );
         },
@@ -117,4 +136,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 }
+
+
 

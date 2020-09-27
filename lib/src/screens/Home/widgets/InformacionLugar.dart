@@ -24,78 +24,71 @@ class InformacionLugar extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
 
-    return Positioned(
-      left: 0,
-      right: 0,
-      bottom: 0,
-      height: size.height * .35,
-      child: AnimatedOpacity(
-        duration: const Duration( milliseconds: 900 ),
-        opacity: isInitiaded ? 1 : 0,
-        curve: Curves.slowMiddle,
-        child: GestureDetector(
-          onVerticalDragUpdate: onVerticalUpdate,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.63),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: homePadding, vertical: 15),
-            child: LayoutBuilder(builder: (context, constraints) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    "Información",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  DescripcionLugar(
-                    descripcion: informacion,
-                  ),
-                  Container(
-                    height: constraints.maxHeight * 0.3,
-                    child: InformationStats(
-                      favoritesCount: favoritesCount,
-                      commentsCount: commentsCount,
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(
-                        height: 10 * value,
-                      ),
-                      Icon(
-                        Icons.keyboard_arrow_up,
-                        size: 35,
-                        color: Colors.white,
-                      ),
-                      
-                      Text(
-                        "Desliza hacia arriba",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 5.0),
-                    ],
-                  ),
-                ],
-              );
-            }),
+    return AnimatedOpacity(
+      duration: const Duration( milliseconds: 900 ),
+      opacity: isInitiaded ? 1 : 0,
+      curve: Curves.slowMiddle,
+      child: GestureDetector(
+        onVerticalDragUpdate: onVerticalUpdate,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.63),
           ),
+          padding: EdgeInsets.symmetric(horizontal: homePadding, vertical: 15),
+          child: LayoutBuilder(builder: (context, constraints) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  "Información",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                DescripcionLugar(
+                  descripcion: informacion,
+                ),
+                Container(
+                  height: constraints.maxHeight * 0.3,
+                  child: InformationStats(
+                    favoritesCount: favoritesCount,
+                    commentsCount: commentsCount,
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 10 * value,
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_up,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+                    
+                    Text(
+                      "Desliza hacia arriba",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 5.0),
+                  ],
+                ),
+              ],
+            );
+          }),
         ),
       ),
     );

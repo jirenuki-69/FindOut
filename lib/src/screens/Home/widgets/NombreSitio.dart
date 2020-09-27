@@ -28,26 +28,30 @@ class NombreSitio extends StatelessWidget {
         width: isInitiaded ? 200 : 20,
         height: isInitiaded ? 120 : 20,
         child: FittedBox(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                profession,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 400),
+            child: Column(
+              key: Key(nombre),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  profession,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              Text(
-                nombre,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 47,
-                  fontWeight: FontWeight.bold,
+                Text(
+                  nombre,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 47,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
